@@ -25,7 +25,6 @@ namespace Arrays
             foreach (int el in arr)
                 if (el < min)
                     min = el;
-            Console.WriteLine("минимальный {0}", min);
             return min;
         }
 
@@ -35,7 +34,6 @@ namespace Arrays
             foreach (int el in arr)
                 if (el > max)
                     max = el;
-            Console.WriteLine("минимальный {0}", max);
             return max;
         }
 
@@ -63,23 +61,12 @@ namespace Arrays
                     bool flag;
                     do
                     {
-                        flag = true;
                         Console.WriteLine("Введите элемент целочисленного массива {0},{1}: ", i, j);
-                        try
-                        {
-                            tmp = Convert.ToInt32(Console.ReadLine());
-                        }
-                        catch (System.FormatException)
-                        {
-                            Console.WriteLine("Массив целочисленный, нельзя вводить не цифры");
-                            flag = false;
-                        }
-                        catch (System.OverflowException)
-                        {
-                            Console.WriteLine("Слишком длинное число");
-                            flag = false;
-                        }
-                        array[i, j] = tmp;
+                        flag = Int32.TryParse(Console.ReadLine(), out tmp);
+                        if(flag)
+                            array[i, j] = tmp;
+                        else
+                            Console.WriteLine("Вы ввели недопустимый символ или число слишком большое");
                     }
                     while (!flag);
                 }
@@ -87,6 +74,9 @@ namespace Arrays
             Write(array);
 
             SwapMinMax(array);
+
+            Console.WriteLine("минимальный {0}", FindMin(array));
+            Console.WriteLine("максимальный {0}", FindMax(array));
 
             Write(array);
             
